@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профессия: Кинолог</title>
+    <style>
+        /* ================= RESET & BASE ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2b2b2b;
+            --accent: #d99b6c; /* Теплый бежево-коричневый из референса */
+            --accent-dark: #b88257;
+            --bg-light: #f7f5f0; /* Светлый фон */
+            --text-dark: #2b2b2b;
+            --text-light: #6b6b6b;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-main);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #fff;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        h1, h2, h3 { font-weight: 600; line-height: 1.2; }
+
+        /* ================= HERO SECTION (Стиль топ-бара и фона) ================= */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1558929996-da64ba858215?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Темный оверлей для читаемости текста */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        /* Топ-бар */
+        .top-bar {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .logo svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover { color: white; }
+
+        /* Контент в Hero */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            max-width: 800px;
+            line-height: 1.1;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #ddd;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        /* ================= BUTTONS ================= */
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid var(--accent);
+            background: var(--accent);
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .btn:hover {
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+        }
+        .btn-outline:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ================= SECTIONS ================= */
+        .section { padding: 100px 0; }
+        .bg-light { background-color: var(--bg-light); }
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .section-desc {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* ================= GRIDS & CARDS ================= */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        
+        .card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid #eee;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ================= LISTS ================= */
+        .styled-list { list-style: none; }
+        .styled-list li {
+            padding: 10px 0 10px 35px;
+            position: relative;
+            color: var(--text-light);
+            font-size: 1.05rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .styled-list li::before { 
+            content: '🦴'; 
+            position: absolute; 
+            left: 0; 
+            font-size: 1rem; 
+        }
+        
+        .salary-list { list-style: none; margin-top: 1rem; }
+        .salary-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.05rem;
+        }
+        .salary-list li span { font-weight: 600; color: var(--primary); }
+
+        /* ================= IMAGES ================= */
+        .image-block {
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .image-block img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .image-block:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ================= BUTTON GROUP ================= */
+        .button-group {
+            text-align: center;
+            margin-top: 60px;
+            padding: 50px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        .button-group h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem; text-transform: uppercase;}
+        .btn-row { margin-top: 30px; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+            border-top: 5px solid var(--accent);
+        }
+        .footer-text { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .footer-sub { font-size: 0.9rem; opacity: 0.7; }
+
+        /* ================= ANIMATIONS ================= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Параллакс для картинок */
+        .parallax-img {
+            transition: transform 0.1s linear;
+            will-change: transform;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 900px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 40px; }
+            .hero-title { font-size: 2.5rem; }
+            .top-bar { flex-direction: column; gap: 20px; padding: 20px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .section { padding: 60px 0; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="top-bar">
+            <div class="logo">
+                <!-- Символ лапки вместо старого логотипа -->
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 35c-2.5 0-4.5-2-4.5-4.5S27.5 26 30 26s4.5 2 4.5 4.5S32.5 35 30 35zm-8-8c-1.5 0-2.5-1-2.5-2.5S20.5 22 22 22s2.5 1 2.5 2.5S23.5 27 22 27zm16 0c-1.5 0-2.5-1-2.5-2.5S36.5 22 38 22s2.5 1 2.5 2.5S39.5 27 38 27zm-6-8c-1.5 0-2.5-1-2.5-2.5S30.5 14 32 14s2.5 1 2.5 2.5S33.5 19 32 19zm8 12c-1.5 0-2.5-1-2.5-2.5S38.5 26 40 26s2.5 1 2.5 2.5S41.5 31 40 31zm-16 0c-1.5 0-2.5-1-2.5-2.5S22.5 26 24 26s2.5 1 2.5 2.5S25.5 31 24 31z"/>
+                    <path d="M50 45c-10 0-25 10-25 25 0 10 15 15 25 15s25-5 25-15c0-15-15-25-25-25z"/>
+                </svg>
+                КИНОЛОГИЯ
+            </div>
+            <div class="nav-links">
+                <a href="#about">О профессии</a>
+                <a href="#salary">Зарплата</a>
+                <a href="#education">Обучение</a>
+                <a href="#applicants">Поступающим</a>
+                <a href="#facts">Интересное</a>
+            </div>
+        </div>
+        
+        <div class="hero-content reveal">
+            <h1 class="hero-title">Профессия<br>Кинолог</h1>
+            <p class="hero-subtitle">Тот, кто говорит с собаками на одном языке. Специалист по поведению, дрессировке и разведению собак.</p>
+            <a href="#about" class="btn">Узнать больше</a>
+        </div>
+    </header>
+
+    <!-- Section: About -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">Чем занимается кинолог?</h2>
+            <div class="grid-2">
+                <div class="text-block reveal">
+                    <p style="margin-bottom: 20px;">Кинолог — это специалист по разведению, воспитанию, дрессировке и использованию собак. Это не просто «собаковод», а профессионал, который понимает психологию, физиологию и поведение животных.</p>
+                    <ul class="styled-list">
+                        <li><strong>Дрессировка:</strong> Обучение базовым командам (ОКД), защитно-караульной службе (ЗКС), следовой работе.</li>
+                        <li><strong>Коррекция поведения:</strong> Работа с агрессией, страхами, разрушительным поведением.</li>
+                        <li><strong>Разведение:</strong> Племенная работа, отбор пар, оценка экстерьера.</li>
+                        <li><strong>Экспертиза:</strong> Судейство на выставках, оценка соответствия стандартам породы.</li>
+                    </ul>
+                </div>
+                <div class="image-block reveal">
+                    <!-- Фото: Тренировка/дрессировка -->
+                    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800&auto=format&fit=crop" alt="Кинолог с собакой">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Where to work & Salary -->
+    <section id="salary" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title reveal">Где работают и сколько зарабатывают</h2>
+            <div class="grid-2">
+                <div class="card reveal">
+                    <h3>Места работы</h3>
+                    <ul class="styled-list">
+                        <li>Кинологические центры и клубы</li>
+                        <li>Питомники (частные и государственные)</li>
+                        <li>МВД, ФСИН, МЧС (служебное собаководство)</li>
+                        <li>Таможенные органы и пограничные службы</li>
+                        <li>Частная практика (тренер, зоопсихолог)</li>
+                    </ul>
+                </div>
+                <div class="card reveal" style="transition-delay: 0.2s;">
+                    <h3>Заработная плата в России</h3>
+                    <p>Уровень дохода зависит от региона, опыта и места работы:</p>
+                    <ul class="salary-list">
+                        <li><span>Начинающий специалист:</span> 30 000 – 45 000 ₽</li>
+                        <li><span>Опытный кинолог:</span> 50 000 – 80 000 ₽</li>
+                        <li><span>Служебный кинолог (МВД/ФСИН):</span> от 60 000 ₽ + льготы</li>
+                        <li><span>Частный тренер:</span> 1 500 – 3 000 ₽ / занятие</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Education & Universities -->
+    <section id="education" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">Где обучаются на кинолога</h2>
+            <p class="section-desc reveal">Профессию можно получить в колледжах, вузах или на специализированных курсах. Для урока биологии важно знать, что в вузах изучают этологию (науку о поведении животных), генетику и анатомию.</p>
+            
+            <div class="grid-3">
+                <div class="card reveal">
+                    <h3>Вузы</h3>
+                    <p>Направления: «Зоотехния», «Биология», «Ветеринария».</p>
+                    <ul class="styled-list">
+                        <li>МВА им. К.И. Скрябина</li>
+                        <li>СПбГАУ</li>
+                        <li>Кубанский ГАУ</li>
+                    </ul>
+                </div>
+                <div class="card reveal" style="transition-delay: 0.15s;">
+                    <h3>Колледжи</h3>
+                    <p>Специальность: «Кинология» (19.02.07).</p>
+                    <ul class="styled-list">
+                        <li>Кинологический колледж при РКФ</li>
+                        <li>Аграрные техникумы по всей РФ</li>
+                    </ul>
+                </div>
+                <div class="card reveal" style="transition-delay: 0.3s;">
+                    <h3>Курсы и школы</h3>
+                    <p>Для тех, кто хочет быстро начать практику.</p>
+                    <ul class="styled-list">
+                        <li>Школы РКФ</li>
+                        <li>Курсы «Зоопсихология»</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- University Buttons -->
+            <div class="button-group reveal">
+                <h3>Поступление в вузы</h3>
+                <p>Перейдите на официальные сайты для получения информации о вступительных экзаменах (ЕГЭ: Биология + Русский язык + Математика/Химия).</p>
+                <div class="btn-row">
+                    <a href="https://mgavm.ru/" target="_blank" class="btn btn-outline">МВА им. Скрябина</a>
+                    <a href="https://spbgau.ru/" target="_blank" class="btn btn-outline">СПбГАУ</a>
+                    <a href="https://kubsau.ru/" target="_blank" class="btn btn-outline">Кубанский ГАУ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: For Applicants -->
+    <section id="applicants" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title reveal">Раздел для поступающих</h2>
+            <div class="grid-2">
+                <div class="image-block reveal">
+                    <!-- Фото: Щенок/Студент/Собака -->
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=800&auto=format&fit=crop" alt="Щенок">
+                </div>
+                <div class="text-block reveal">
+                    <h3>Что нужно знать?</h3>
+                    <p style="margin-bottom: 20px;">Для поступления на кинологические направления в вузы обычно требуются результаты ЕГЭ по:</p>
+                    <ul class="styled-list">
+                        <li>Биология (профильный предмет)</li>
+                        <li>Русский язык</li>
+                        <li>Математика (или Химия, в зависимости от вуза)</li>
+                    </ul>
+                    <p style="margin-top: 20px;">В колледжи прием проходит по среднему баллу аттестата (без ЕГЭ).</p>
+                    <h3 style="margin-top: 30px;">Качества будущего кинолога:</h3>
+                    <p>Терпение, физическая выносливость, любовь к животным, отсутствие страха и аллергии, аналитический склад ума.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Interesting Facts & Career Growth -->
+    <section id="facts" class="section">
+        <div class="container">
+            <h2 class="section-title reveal">Интересное и карьерный рост</h2>
+            <div class="grid-2">
+                <div class="card reveal">
+                    <h3>Интересные факты</h3>
+                    <ul class="styled-list">
+                        <li>Собаки понимают до 250 слов и жестов, а также считают до 5.</li>
+                        <li>Кинологи используют метод «кликер-тренинга» (щелчок = награда).</li>
+                        <li>В МЧС кинологи готовят собак для поиска людей под завалами.</li>
+                        <li>В мире существует наука «этология» — изучение поведения животных.</li>
+                    </ul>
+                </div>
+                <div class="card reveal" style="transition-delay: 0.2s;">
+                    <h3>Карьерный рост</h3>
+                    <ul class="styled-list">
+                        <li><strong>Кинолог-инструктор</strong> → <strong>Старший тренер</strong></li>
+                        <li><strong>Специалист по разведению</strong> → <strong>Заводчик питомника</strong></li>
+                        <li><strong>Помощник судьи</strong> → <strong>Эксперт РКФ (судья)</strong></li>
+                        <li><strong>Служба в органах</strong> (от рядового до начальника кинологической службы)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">Подготовила ученица 11 класса <strong>Нутрикова Дарья</strong></p>
+            <p class="footer-sub">Урок биологии • 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Анимация появления элементов при скролле (Reveal)
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100;
+
+                revealElements.forEach((reveal) => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+            setTimeout(revealOnScroll, 100);
+
+            // 2. Плавный скролл для якорных ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
